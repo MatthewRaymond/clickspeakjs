@@ -1,0 +1,18 @@
+<!ENTITY clc_clcspeak.prefui.title "CLiCk, Speak.js Options">
+<!ENTITY clc_clcspeak.prefui.buttons.save "Save">
+<!ENTITY clc_clcspeak.prefui.buttons.cancel "Cancel">
+<!ENTITY clc_clcspeak.prefui.voiceoptions "Voice Options">
+<!ENTITY clc_clcspeak.prefui.speechengine.label "Speech Engine">
+<!ENTITY clc_clcspeak.prefui.speechengine.speakjs "Speak.js (Recommended)">
+<!ENTITY clc_clcspeak.prefui.speechrate.label "Speech Rate">
+<!ENTITY clc_clcspeak.prefui.speechrate.veryslow "Very Slow">
+<!ENTITY clc_clcspeak.prefui.speechrate.slow "Slow">
+<!ENTITY clc_clcspeak.prefui.speechrate.normal "Normal">
+<!ENTITY clc_clcspeak.prefui.speechrate.fast "Fast">
+<!ENTITY clc_clcspeak.prefui.speechrate.veryfast "Very Fast">
+<!ENTITY clc_clcspeak.prefui.pitch.label "Pitch">
+<!ENTITY clc_clcspeak.prefui.pitch.verylow "Very Low">
+<!ENTITY clc_clcspeak.prefui.pitch.low "Low">
+<!ENTITY clc_clcspeak.prefui.pitch.normal "Normal">
+<!ENTITY clc_clcspeak.prefui.pitch.high "High">
+<!ENTITY clc_clcspeak.prefui.pitch.veryhigh "Very High">

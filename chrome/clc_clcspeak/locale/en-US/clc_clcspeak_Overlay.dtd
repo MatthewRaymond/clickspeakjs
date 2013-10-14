@@ -1,0 +1,11 @@
+<!ENTITY clc_clcspeak.menuitem.cl0 "[CLC] Speak Selection">
+<!ENTITY clc_clcspeak.menuitem.cl1 "[CLC] Auto Reading Mode">
+<!ENTITY clc_clcspeak.menuitem.cl2 "[CLC] Stop Speaking">
+<!ENTITY clc_clcspeak.menu.clc.sp3 "CLC Speak.js TTS Selection">
+<!ENTITY clc_clcspeak.toolbar.cl10 "CLiCk, Speak.js Toolbar">
+<!ENTITY clc_clcspeak.toolbarbut11 "Speak Selection">
+<!ENTITY clc_clcspeak.toolbarbut12 "Auto Reading Mode">
+<!ENTITY clc_clcspeak.toolbarbut13 "Stop Speaking">
+<!ENTITY clc_clcspeak.tooltip.speak "Click here to speak the selected text.">
+<!ENTITY clc_clcspeak.tooltip.auto "Click here to start automatically reading through the page.">
+<!ENTITY clc_clcspeak.tooltip.stop "Click here to stop speaking.">

@@ -1,0 +1,61 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#clc-clickspeak-speak-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-24.png");
+}
+
+toolbar[iconsize="small"] #clc-clickspeak-speak-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-16.png");
+}
+
+#clc-clickspeak-auto-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-24.png");
+}
+
+toolbar[iconsize="small"] #clc-clickspeak-auto-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-16.png");
+}
+
+#clc-clickspeak-stop-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-24.png");
+}
+
+toolbar[iconsize="small"] #clc-clickspeak-stop-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-16.png");
+}
+
+#clc-clickspeak-speak-exlarge-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png");
+}
+
+toolbar[iconsize="small"] #clc-clickspeak-speak-exlarge-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-16.png");
+}
+
+#clc-clickspeak-auto-exlarge-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-48.png");
+}
+
+toolbar[iconsize="small"] #clc-clickspeak-auto-exlarge-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-16.png");
+}
+
+#clc-clickspeak-stop-exlarge-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-48.png");
+}
+
+toolbar[iconsize="small"] #clc-clickspeak-stop-exlarge-button {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-16.png");
+}
+
+#clc-clickspeak-speak-menuitem {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-16.png");
+}
+
+#clc-clickspeak-auto-menuitem {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-16.png");
+}
+
+#clc-clickspeak-stop-menuitem {
+  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-16.png");
+}

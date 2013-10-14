@@ -1,0 +1,8 @@
+<!ENTITY clc_clcspeak.about.title "About CLiCk, Speak.js">
+<!ENTITY clc_clcspeak.about.version "Version">
+<!ENTITY clc_clcspeak.about.description "CLiCk, Speak.js is a hack of Charles L. Chen's old text-to-speech add-on: CLiCk, Speak. It incorporates libraries and components for both ML-FireVox (a multi-language fork FireVox mantained by Filippo Battaglia) and a JavaScript text-to-speech engine Speak.js (which is in turn based on eSpeak).">
+<!ENTITY clc_clcspeak.about.relatedlinks "Related Links:">
+<!ENTITY clc_clcspeak.about.links.clickspeak "CLiCk, Speak: A Talking Extension for Firefox">
+<!ENTITY clc_clcspeak.about.links.mlfirevox "ML-FireVox Home Page">
+<!ENTITY clc_clcspeak.about.links.speakjs "Katsuya Noguchi's Official Fork of Speak.js">
+<!ENTITY clc_clcspeak.about.links.espeak "eSpeak: Speech Synthesizer">

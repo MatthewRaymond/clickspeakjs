@@ -1,0 +1,57 @@
+﻿<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://clc_clcspeak/skin/about.css" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://clc_clcspeak/locale/about.dtd">
+
+
+
+<dialog
+  id="clc_clcspeak.about"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  buttons="accept"
+  title="&clc_clcspeak.about.title;"
+  onload="window.sizeToContent();"
+>
+  <vbox>
+
+    <hbox>
+
+      <vbox>
+        <image class="about-logo" src="chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png"/>
+      </vbox>
+      <vbox>
+        <label class="about-appname" value="CLiCk, Speak.js"/>
+        <label value="&clc_clcspeak.about.version; 1.6.24"/>
+
+      </vbox>
+    </hbox>
+
+    <groupbox class="about-main">
+
+      <vbox>
+        <description class="about-description">&clc_clcspeak.about.description;</description>
+        <description class="about-relatedlinks">&clc_clcspeak.about.relatedlinks;</description>
+        <html:ul style="margin-top: 0;">
+          <html:li>
+            <label href="http://clickspeak.clcworld.net/" target="_blank" class="text-link" value="&clc_clcspeak.about.links.clickspeak;"/>
+          </html:li>
+          <html:li>
+            <label href="http://visilab.unime.it/~filippo/MLFireVox/MLFireVox.htm" target="_blank" class="text-link" value="&clc_clcspeak.about.links.mlfirevox;"/>
+          </html:li>
+          <html:li>
+            <label href="https://github.com/kn/speak.js" target="_blank" class="text-link" value="&clc_clcspeak.about.links.speakjs;"/>
+          </html:li>
+          <html:li>
+            <label href="http://espeak.sourceforge.net/" target="_blank" class="text-link" value="&clc_clcspeak.about.links.espeak;"/>
+          </html:li>
+        </html:ul>
+      </vbox>
+
+    </groupbox>
+  </vbox>
+
+</dialog>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<!-- Copyright (C) 2005
+//CLC-4-TTS Firefox Extension - Utilities :
+//Core Library Components for Text-To-Speech for Firefox
+//Additional Utility Functions Library
+//by Charles L. Chen
+
+ 
+//This program is free software; you can redistribute it
+//and/or modify it under the terms of the GNU General Public
+//License as published by the Free Software Foundation;
+//either version 2.1 of the License, or (at your option) any
+//later version.  This program is distributed in the hope
+//that it will be useful, but WITHOUT ANY WARRANTY; without
+//even the implied warranty of MERCHANTABILITY or FITNESS FOR
+//A PARTICULAR PURPOSE. See the GNU General Public License for
+//more details.  You should have received a copy of the GNU
+//General Public License along with this program; if not, look
+//on the web at on the web at http://www.gnu.org/copyleft/gpl.html
+//or write to the Free Software Foundation, Inc., 59 Temple Place,
+//Suite 330, Boston, MA 02111-1307, USA.
+ 
+
+//Last Modified Date 11/15/2005
+-->
+
+<overlay id="clc_utilsOverlay"
+	 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_window.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_fetch.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_highlight.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_text.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_id_special.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_id_subfunc_1.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_id_subfunc_2.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_id_main.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_cursor.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_content_main.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_status_main.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_mathml_main.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_mathml_char_lookup.js" />  
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_css.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_spruleobj.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_segment.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_mutation.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/XinDiff.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_diff.js" />
+
+</overlay>

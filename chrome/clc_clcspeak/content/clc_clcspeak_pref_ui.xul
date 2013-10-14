@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://clc_clcspeak/locale/pref_ui.dtd">
+
+<dialog
+  id="FireVoxPrefDialog"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  title="&clc_clcspeak.prefui.title;"
+  resizable="no"
+  buttons="accept,cancel"
+  buttonlabelaccept="&clc_clcspeak.prefui.buttons.save;"
+  buttonlabelcancel="&clc_clcspeak.prefui.buttons.cancel;"
+  ondialogaccept="CLC_CS_PrefUI_Save();"
+  onload="CLC_CS_PrefUI_Load(); window.sizeToContent();"
+>
+  <script type="application/x-javascript" src="chrome://clc_tts/content/speakClient.js" />
+  <script type="application/x-javascript" src="chrome://clc_tts/content/clc_tts.js" />
+  <script type="application/x-javascript" src="chrome://clc_tts/content/clc_tts_using_properties.js" />
+  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_globals.js" />
+  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_TTSEngineConfig.js" />
+  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_preferences.js" />
+  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_prefUI.js" />
+  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_prefUI_events.js" />
+
+  <groupbox>
+    <caption label="&clc_clcspeak.prefui.voiceoptions;"/>
+    <grid>
+      <columns>
+        <column flex="1"/>
+        <column flex="2"/>
+      </columns>
+      <rows>
+        <row align="center">
+          <label value="&clc_clcspeak.prefui.speechengine.label;" control="speechEngine-menulist"/>
+          <menulist id="speechEngine-menulist">
+            <menupopup onpopuphidden="CLC_CS_PrefUI_PopUpHiddenHandler();">
+              <menuitem id="1" label="&clc_clcspeak.prefui.speechengine.speakjs;"/>
+            </menupopup>
+          </menulist>
+        </row>
+        <row align="center">
+          <label value="&clc_clcspeak.prefui.speechrate.label;" control="speechRate-menulist"/>
+          <menulist id="speechRate-menulist">
+            <menupopup onpopuphidden="CLC_CS_PrefUI_PopUpHiddenHandler();">
+              <menuitem label="&clc_clcspeak.prefui.speechrate.veryslow;"/>
+              <menuitem label="&clc_clcspeak.prefui.speechrate.slow;"/>
+              <menuitem label="&clc_clcspeak.prefui.speechrate.normal;"/>
+              <menuitem label="&clc_clcspeak.prefui.speechrate.fast;"/>
+              <menuitem label="&clc_clcspeak.prefui.speechrate.veryfast;"/>
+            </menupopup>
+          </menulist>
+        </row>
+        <row align="center">
+          <label value="&clc_clcspeak.prefui.pitch.label;" control="speechPitch-menulist"/>
+          <menulist id="speechPitch-menulist">
+            <menupopup onpopuphidden="CLC_CS_PrefUI_PopUpHiddenHandler();">
+              <menuitem label="&clc_clcspeak.prefui.pitch.verylow;"/>
+              <menuitem label="&clc_clcspeak.prefui.pitch.low;"/>
+              <menuitem label="&clc_clcspeak.prefui.pitch.normal;"/>
+              <menuitem label="&clc_clcspeak.prefui.pitch.high;"/>
+              <menuitem label="&clc_clcspeak.prefui.pitch.veryhigh;"/>
+            </menupopup>
+          </menulist>
+        </row>
+      </rows>
+    </grid>
+  </groupbox>
+</dialog>

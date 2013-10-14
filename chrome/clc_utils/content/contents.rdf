@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<!-- Copyright (C) 2005
+//CLC-4-TTS Firefox Extension - Utilities :
+//Core Library Components for Text-To-Speech for Firefox
+//Additional Utility Functions Library
+//by Charles L. Chen
+
+ 
+//This program is free software; you can redistribute it
+//and/or modify it under the terms of the GNU General Public
+//License as published by the Free Software Foundation;
+//either version 2.1 of the License, or (at your option) any
+//later version.  This program is distributed in the hope
+//that it will be useful, but WITHOUT ANY WARRANTY; without
+//even the implied warranty of MERCHANTABILITY or FITNESS FOR
+//A PARTICULAR PURPOSE. See the GNU General Public License for
+//more details.  You should have received a copy of the GNU
+//General Public License along with this program; if not, look
+//on the web at on the web at http://www.gnu.org/copyleft/gpl.html
+//or write to the Free Software Foundation, Inc., 59 Temple Place,
+//Suite 330, Boston, MA 02111-1307, USA.
+ 
+
+//Last Modified Date 1/5/2005
+-->
+
+<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:chrome="http://www.mozilla.org/rdf/chrome#">
+
+	<RDF:Seq RDF:about="urn:mozilla:package:root">
+		<RDF:li RDF:resource="urn:mozilla:package:clc_utils"/>
+	</RDF:Seq>
+
+	<RDF:Seq RDF:about="urn:mozilla:overlays">
+		<RDF:li RDF:resource="chrome://browser/content/browser.xul"/>
+		<RDF:li RDF:resource="chrome://navigator/content/navigator.xul"/>
+		<RDF:li RDF:resource="chrome://global/content/commonDialog.xul"/>
+                <RDF:li RDF:resource="chrome://chatzilla/content/chatzilla.xul"/>
+	</RDF:Seq>
+
+	<RDF:Seq RDF:about="chrome://browser/content/browser.xul">
+		<RDF:li>chrome://clc_utils/content/clc_utilsOverlay.xul</RDF:li>
+	</RDF:Seq>
+
+	<RDF:Seq about="chrome://navigator/content/navigator.xul">
+		<RDF:li>chrome://clc_utils/content/clc_utilsOverlay.xul</RDF:li>
+	</RDF:Seq>
+
+	<RDF:Seq about="chrome://global/content/commonDialog.xul">
+		<RDF:li>chrome://clc_utils/content/clc_utilsOverlay.xul</RDF:li>
+	</RDF:Seq>
+
+	<RDF:Seq about="chrome://chatzilla/content/chatzilla.xul">
+		<RDF:li>chrome://clc_utils/content/clc_utilsOverlay.xul</RDF:li>
+	</RDF:Seq>
+
+	<RDF:Description RDF:about="urn:mozilla:package:clc_utils"
+		chrome:displayName="CLC-4-TTS: Additional Utility Functions Library"
+		chrome:author="Charles L. Chen"
+		chrome:authorURL="http://clc-4-tts.cjb.net/"
+		chrome:name="clc_utils"
+		chrome:extension="true"
+		chrome:description="A library of additional utility functions which may be useful in implementing a screen reader within Firefox.">
+	</RDF:Description>
+
+</RDF:RDF>

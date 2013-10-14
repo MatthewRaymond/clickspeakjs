@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:NC="http://home.netscape.com/NC-rdf#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+
+<!-- Copyright (C) 2012
+//CLiCk, Speak.js:
+//Original code by Charles L. Chen
+//Changes done by Filippo Battaglia
+//More changes done by Matthew Raymond
+//Speak.js was created by Alon Zakai <alonzakai@gmail.com> (copyright owned by Mozilla Foundation)
+ 
+//This program is free software; you can redistribute it
+//and/or modify it under the terms of the GNU General Public
+//License as published by the Free Software Foundation;
+//either version 2.1 of the License, or (at your option) any
+//later version.  This program is distributed in the hope
+//that it will be useful, but WITHOUT ANY WARRANTY; without
+//even the implied warranty of MERCHANTABILITY or FITNESS FOR
+//A PARTICULAR PURPOSE. See the GNU General Public License for
+//more details.  You should have received a copy of the GNU
+//General Public License along with this program; if not, look
+//on the web at on the web at http://www.gnu.org/copyleft/gpl.html
+//or write to the Free Software Foundation, Inc., 59 Temple Place,
+//Suite 330, Boston, MA 02111-1307, USA.
+
+
+//Last Modified Date 2013-10-03
+-->
+
+	<Description about="urn:mozilla:install-manifest">
+		<!-- nsIUpdateItem type for a Multiple Item Package -->
+		<em:type>2</em:type>
+
+		<em:id>{D1517460-5F8F-11DB-B0DE-0800200CA666}</em:id>
+		<em:name>CLiCk, Speak.js</em:name>
+		<em:version>1.6.27</em:version>
+		<em:description>CLiCk, Speak.js is a hybrid of Charles L. Chen's excellent text-to-speech extension and the JavaScript TTS engine Speak.js. It also includes some code improvements for ML-FireVox.</em:description>
+		<em:creator>Matthew Raymond</em:creator>
+                <em:developer>Charles L. Chen</em:developer>
+                <em:developer>Filippo Battaglia</em:developer>
+		<em:homepageURL>http://clickspeak.clcworld.net</em:homepageURL>
+
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>14.0</em:minVersion>
+				<em:maxVersion>27.0a1</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+		<em:optionsURL>chrome://clc_clcspeak/content/clc_clcspeak_pref_ui.xul</em:optionsURL>
+		<em:aboutURL>chrome://clc_clcspeak/content/clc_clcspeak_about.xul</em:aboutURL>
+		<em:iconURL>chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png</em:iconURL>
+	</Description>
+</RDF>
