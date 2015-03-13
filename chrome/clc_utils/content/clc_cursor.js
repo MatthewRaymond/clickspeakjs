@@ -3,6 +3,7 @@
 //Core Library Components for Text-To-Speech for Firefox
 //Additional Utility Functions: Cursor
 //by Charles L. Chen
+//Modified by Matthew Raymond
 
  
 //This program is free software; you can redistribute it
@@ -20,7 +21,7 @@
 //Suite 330, Boston, MA 02111-1307, USA.
  
 
-//Last Modified Date 11/09/2005
+//Last Modified Date 3/13/2015
 
 
 
@@ -28,26 +29,29 @@
 //Turns on caret browsing mode
 //
 function CLC_CaretModeOn(){
-   Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("").setBoolPref("accessibility.warn_on_browsewithcaret", false);
-   Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("").setBoolPref("accessibility.browsewithcaret", true);
-   }
+  var Cc = Components.classes;
+  var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+
+  prefs.getBranch("").setBoolPref("accessibility.warn_on_browsewithcaret", false);
+  prefs.getBranch("").setBoolPref("accessibility.browsewithcaret", true);
+}
 
 //------------------------------------------
 //This moves the caret (cursor used for caret 
 //browsing) to the targetnode.
 //
-function CLC_MoveCaret(targ_DOMobj){
-   if (!targ_DOMobj){
-      return;
-      }
+function CLC_MoveCaret(targ_DOMobj) {
+  if (targ_DOMobj) {
+    var cursor = CLC_Window().getSelection();
+    var range = document.createRange();
 
-   var cursor = CLC_Window().getSelection();
-   var range = document.createRange();
-   range.setStart(targ_DOMobj, 0); 
-   range.setEnd(targ_DOMobj, 0);  
-   cursor.collapse(targ_DOMobj, 0);  
-   cursor.addRange(range);
-   }
+    range.setStart(targ_DOMobj, 0);
+    range.setEnd(targ_DOMobj, 0);
+
+    cursor.collapse(targ_DOMobj, 0);
+    cursor.addRange(range);
+  }
+}
 
 //------------------------------------------
 //This will blur the targ_DOMobj completely.
@@ -55,14 +59,15 @@ function CLC_MoveCaret(targ_DOMobj){
 //ancestors are not blurred, there may be a 
 //problem with moving the caret with CLC_MoveCaret.
 //
-function CLC_BlurAll(targ_DOMobj){
-   while(targ_DOMobj){
-      if (targ_DOMobj.blur){
-          targ_DOMobj.blur();
-          }
-      targ_DOMobj = targ_DOMobj.parentNode;
-      }   
-   }
+function CLC_BlurAll(targ_DOMobj) {
+  while(targ_DOMobj) {
+    if (targ_DOMobj.blur) {
+      targ_DOMobj.blur();
+    }
+
+    targ_DOMobj = targ_DOMobj.parentNode;
+  }   
+}
 
 //------------------------------------------
 //This will select the sentence found in targ_DOMobj which is
@@ -71,29 +76,31 @@ function CLC_BlurAll(targ_DOMobj){
 //targ_DOMobj, and that targ_sentenceArrayIndex is within range.
 //
 //
-function CLC_SelectSentence(targ_DOMobj, targ_sentenceArray, targ_sentenceArrayIndex){
-   try{
-      //Find the start point
-      var startPoint = 0;
-      for (var i=0; i<targ_sentenceArrayIndex; i++){
-         startPoint = startPoint + targ_sentenceArray[i].length;
-         }
+function CLC_SelectSentence(targ_DOMobj, targ_sentenceArray, targ_sentenceArrayIndex) {
+  try {
+    // * Find the start point
+    var startPoint = 0;
 
-      //Find the end point
-      var endPoint = startPoint + targ_sentenceArray[targ_sentenceArrayIndex].length;
+    for (var i = 0; i < targ_sentenceArrayIndex; i++){
+      startPoint = startPoint + targ_sentenceArray[i].length;
+    }
 
-      //Create the range
-      var range = document.createRange();
-      range.setStart(targ_DOMobj, startPoint); 
-      range.setEnd(targ_DOMobj, endPoint); 
+    // * Find the end point
+    var endPoint = startPoint + targ_sentenceArray[targ_sentenceArrayIndex].length;
 
-      //Create the cursor
-      var cursor = CLC_Window().getSelection();
-      cursor.collapse(targ_DOMobj, 0);   
-      cursor.addRange(range);
-      }
-   catch(e){}
-   }
+    // * Create the range
+    var range = document.createRange();
+
+    range.setStart(targ_DOMobj, startPoint); 
+    range.setEnd(targ_DOMobj, endPoint); 
+
+    // * Create the cursor
+    var cursor = CLC_Window().getSelection();
+
+    cursor.collapse(targ_DOMobj, 0);   
+    cursor.addRange(range);
+  } catch(e) {}
+}
 
 
 //------------------------------------------
@@ -107,22 +114,24 @@ function CLC_SelectSentence(targ_DOMobj, targ_sentenceArray, targ_sentenceArrayI
 //2. To reduce the number of places that need to be fixed when the next Firefox 
 //update breaks the behavior of retrieving Atomic DOM objects from the cursor position.
 //
-function CLC_FindSentenceArrayIndexOfCursorPos(targ_sentenceArray){
-   try{
-      //Find the cursor's offset
-      var cursor = CLC_Window().getSelection();
-      var offset = cursor.anchorOffset;
-      for (var i=0; i<targ_sentenceArray.length; i++){
-         offset = offset - targ_sentenceArray[i].length;
-         if (offset < 0){
-            return i;
-            }
-         }
-      return -1;
+function CLC_FindSentenceArrayIndexOfCursorPos(targ_sentenceArray)
+{
+  try {
+    // * Find the cursor's offset
+    var cursor = CLC_Window().getSelection();
+    var offset = cursor.anchorOffset;
+
+    for (var i = 0; i < targ_sentenceArray.length; i++) {
+      offset = offset - targ_sentenceArray[i].length;
+
+      if (offset < 0) {
+        return i;
       }
-   catch(e){}
-   return -1;   
-   }
+    }
+  } catch(e) {}
+
+  return -1;   
+}
 
 
 

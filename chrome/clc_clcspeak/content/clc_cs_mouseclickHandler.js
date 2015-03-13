@@ -26,7 +26,7 @@ function CLC_CS_Focus_Handler(event) {
 }
 
 function CLC_CS_Focus_Init(){   
-   var framesArray = window._content.document.documentElement.getElementsByTagName("frame");
+   var framesArray = window.content.document.documentElement.getElementsByTagName("frame");
    var F;
    var csWindow;
    var i;

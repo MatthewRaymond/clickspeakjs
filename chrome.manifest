@@ -13,8 +13,6 @@ overlay chrome://global/content/commonDialog.xul chrome://clc_utils/content/clc_
 overlay chrome://chatzilla/content/chatzilla.xul chrome://clc_utils/content/clc_utilsOverlay.xul
 
 content clc_tts chrome/clc_tts/content/
-
-
 overlay chrome://browser/content/browser.xul     chrome://clc_tts/content/clc_ttsOverlay.xul
 overlay chrome://navigator/content/navigator.xul chrome://clc_tts/content/clc_ttsOverlay.xul
 overlay chrome://global/content/commonDialog.xul chrome://clc_tts/content/clc_ttsOverlay.xul

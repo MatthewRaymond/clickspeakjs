@@ -2,7 +2,7 @@
 //CLC-4-TTS Firefox Extension:
 //Core Library Components for Text-To-Speech for Firefox
 //by Charles L. Chen
-
+//Modified by Matthew Raymond
  
 //This program is free software; you can redistribute it
 //and/or modify it under the terms of the GNU General Public
@@ -19,7 +19,7 @@
 //Suite 330, Boston, MA 02111-1307, USA.
  
 
-//Last Modified Date 6/13/2008
+//Last Modified Date 3/12/2015
 
 
 
@@ -66,8 +66,10 @@ function CLC_Init(engine) {
       
    if (engine == 1) {
       try {
-         CLC_SPEAKJS_OBJ = new Audio();
+         CLC_SPEAKJS_OBJ = new AudioContext;
          CLC_SPEAKJS_OBJ.Waiting = false;
+         CLC_SPEAKJS_OBJ.playing = false;
+         CLC_SPEAKJS_OBJ.source = null;
 
          // * Create history buffer.
          CLC_Make_TTS_History_Buffer(20);
@@ -120,9 +122,7 @@ function CLC_Ready() {
    var retVal = false;
 
    if (CLC_TTS_ENGINE == 1) {
-      retVal = (CLC_SPEAKJS_OBJ.paused || CLC_SPEAKJS_OBJ.ended); // || CLC_SPEAKJS_OBJ.readyState == 0);
-      retVal = retVal && !CLC_SPEAKJS_OBJ.Waiting;
-      //retVal = retVal && !CLC_SPEAKJS_OBJ.seeking;
+      retVal = CLC_SPEAKJS_OBJ.playing == false && CLC_SPEAKJS_OBJ.Waiting == false;
    }
 
    return retVal;
@@ -134,7 +134,12 @@ function CLC_Ready() {
 //
 function CLC_Interrupt() {
    if (CLC_TTS_ENGINE == 1) {
-      CLC_SPEAKJS_OBJ.pause();
+      if (CLC_SPEAKJS_OBJ.playing) {
+        CLC_SPEAKJS_OBJ.source.stop();
+        CLC_SPEAKJS_OBJ.source = null;
+      }
+
+      CLC_SPEAKJS_OBJ.playing = false;
       CLC_SPEAKJS_OBJ.Waiting = false;
    }
 
@@ -187,9 +192,13 @@ function CLC_Say(messagestring, pitch) {
       // * TODO: Fix message text.
 
       CLC_SPEAKJS_Speak(
-         messagestring,
-         CLC_SPEAKJS_OBJ,
-         { amplitude: CLC_SPEAKJS_DefaultVolume, pitch: pitch, speed: CLC_SPEAKJS_DefaultRate } //, voice: CLC_LANG }
+        messagestring,
+        CLC_SPEAKJS_OBJ,
+        {
+          amplitude: CLC_SPEAKJS_DefaultVolume,
+          pitch: pitch,
+          speed: CLC_SPEAKJS_DefaultRate
+        } //, voice: CLC_LANG }
       );
    }
 }

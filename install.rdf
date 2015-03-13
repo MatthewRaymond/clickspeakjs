@@ -27,7 +27,7 @@
 //Suite 330, Boston, MA 02111-1307, USA.
 
 
-//Last Modified Date 2014-01-06
+//Last Modified Date 2015-03-13
 -->
 
 	<Description about="urn:mozilla:install-manifest">
@@ -36,7 +36,7 @@
 
 		<em:id>{D1517460-5F8F-11DB-B0DE-0800200CA666}</em:id>
 		<em:name>CLiCk, Speak.js</em:name>
-		<em:version>1.6.29</em:version>
+		<em:version>1.6.38</em:version>
 		<em:description>CLiCk, Speak.js is a hybrid of Charles L. Chen's excellent text-to-speech extension and the JavaScript TTS engine Speak.js. It also includes some code improvements for ML-FireVox.</em:description>
 		<em:creator>Matthew Raymond</em:creator>
                 <em:developer>Charles L. Chen</em:developer>
@@ -46,8 +46,8 @@
 		<em:targetApplication>
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-				<em:minVersion>14.0</em:minVersion>
-				<em:maxVersion>29.0a1</em:maxVersion>
+				<em:minVersion>23.0</em:minVersion>
+				<em:maxVersion>38.0a2</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 

@@ -1,6 +1,6 @@
 //Temporary cursor hackaround fix for https://bugzilla.mozilla.org/show_bug.cgi?id=351491
 function CLC_CS_FFCursorFix() {
-   var framesArray = window._content.document.documentElement.getElementsByTagName("frame");
+   var framesArray = window.content.document.documentElement.getElementsByTagName("frame");
 
    for(var i = 0; i < framesArray.length; i++){
       framesArray[i].contentWindow.focus();

@@ -8,7 +8,7 @@ Related URLs
 
 * http://clickspeak.clcworld.net/
 * http://visilab.unime.it/~filippo/MLFireVox/MLFireVox.htm
-* https://github.com/kn/speak.js
+* https://github.com/logue/speak.js
 * http://espeak.sourceforge.net/
 
 Usage
