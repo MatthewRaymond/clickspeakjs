@@ -19,7 +19,7 @@
 //Suite 330, Boston, MA 02111-1307, USA.
  
 
-//Last Modified Date 3/12/2015
+//Last Modified Date 4/07/2016
 
 
 
@@ -27,63 +27,82 @@
 
 //Globals used by CLC-4-TTS
 //These variables MUST NOT be touched by anyone using this library!
-var CLC_TTS_ENGINE = 0;
 var CLC_LANG = "en/en-us";
-var CLC_SPEAKJS_OBJ;
+var CLC_SPEAKJS_OBJ = new Object();
 var CLC_TTS_HISTORY_BUFFER;
 var CLC_TTS_HISTORY_BUFFER_MAXSIZE;
+var CLC_BrowserSpeechEnabled = false;
 
 var CLC_SPEAKJS_DefaultMiddle = 50;
 var CLC_SPEAKJS_DefaultRate = 175;
 var CLC_SPEAKJS_DefaultVolume = 100;
 
-
 //------------------------------------------
 
-//The Text-To-Speech engine that will be used is determined by "engine."
-//Currently, the following values are valid for "engine":
-//   0 = No engine selected
-//   1 = Speak.js
-//
 //
 //Returns true if initialized successfully; otherwise false.
 //
-function CLC_Init(engine) {
-   // Questa parte è stata modificata. Se è operativo un engine, questo deve essere
-   // disattivato. Sarà poi la routine di inizializzazione a provvedere ad attivare
-   // un altro engine, ove questo sia possibile sulla data piattaforma
-   
-   if (CLC_TTS_ENGINE > 0)
-   {
-   	CLC_Interrupt();	// Ferma istantaneamente la riproduzione nell'engine in uso
-   }
-   
-   // In questo momento non c'è nessun engine operativo
-   
-   CLC_TTS_ENGINE = 0;
-   
-   // Prova ad attivare l'engine che è stato richiesto
-      
-   if (engine == 1) {
-      try {
-         CLC_SPEAKJS_OBJ = new AudioContext;
-         CLC_SPEAKJS_OBJ.Waiting = false;
-         CLC_SPEAKJS_OBJ.playing = false;
-         CLC_SPEAKJS_OBJ.source = null;
+function CLC_Init() {
+  var returnValue = false;
+	
+  try {
+	CLC_BrowserSpeechEnabled = typeof CLC_Window().speechSynthesis != 'undefined';
+	
+	if (!CLC_BrowserSpeechEnabled) {
+	  var CLC_AudioContext = CLC_Window().AudioContext;
+	  
+	  CLC_SPEAKJS_Init();
+      CLC_SPEAKJS_OBJ = new CLC_AudioContext();
+      CLC_SPEAKJS_OBJ.source = null;
+	}
 
-         // * Create history buffer.
-         CLC_Make_TTS_History_Buffer(20);
+    CLC_SPEAKJS_OBJ.Waiting = false;
+    CLC_SPEAKJS_OBJ.Playing = false;
+	
+    // * Create history buffer.
+    CLC_Make_TTS_History_Buffer(20);
+	
+    returnValue = true;
+  } catch(err) { }
 
-         // * Set the engine flag.
-         CLC_TTS_ENGINE = 1;
-
-         return true;
-      } catch(err) { }
-   }
-
-   return false;
+  return returnValue;
 }
 
+
+//------------------------------------------
+
+//
+// Resets the TTS engine.
+//
+function CLC_Reset() {
+  var returnValue = false;
+
+  try {
+	var IsSpeechEnabled = typeof CLC_Window().speechSynthesis != 'undefined';
+	
+	if (CLC_BrowserSpeechEnabled != IsSpeechEnabled) {
+	  CLC_BrowserSpeechEnabled = IsSpeechEnabled;
+      CLC_Shutdown();
+	  
+	  if (CLC_BrowserSpeechEnabled) {
+        CLC_SPEAKJS_OBJ = new Object();
+	  } else {
+        var CLC_AudioContext = CLC_Window().AudioContext;
+	  
+        CLC_SPEAKJS_Init();
+        CLC_SPEAKJS_OBJ = new CLC_AudioContext();
+        CLC_SPEAKJS_OBJ.source = null;
+	  }
+
+      CLC_SPEAKJS_OBJ.Waiting = false;
+      CLC_SPEAKJS_OBJ.Playing = false;
+	}
+	
+    returnValue = true;
+  } catch(err) { }
+
+  return returnValue;
+}
 
 //------------------------------------------
 
@@ -94,7 +113,12 @@ function CLC_Init(engine) {
 //it may deallocate it when some other extension still needs it.
 //
 function CLC_Shutdown() {
-   CLC_Interrupt();
+   CLC_Stop();
+   
+   if (!CLC_BrowserSpeechEnabled) {
+	 CLC_SPEAKJS_Uninit();
+   }
+   
    return;
 }
 
@@ -119,42 +143,35 @@ function CLC_Make_TTS_History_Buffer(maxsize) {
 //False == Not ready to speak/Busy
 //
 function CLC_Ready() {
-   var retVal = false;
-
-   if (CLC_TTS_ENGINE == 1) {
-      retVal = CLC_SPEAKJS_OBJ.playing == false && CLC_SPEAKJS_OBJ.Waiting == false;
-   }
-
-   return retVal;
+   return CLC_SPEAKJS_OBJ.Playing == false && CLC_SPEAKJS_OBJ.Waiting == false;
 }
 
 //------------------------------------------
 
-//Interrupts the speech engine so that it stops speaking.
+//Globally stops all speakers.
 //
 function CLC_Interrupt() {
-   if (CLC_TTS_ENGINE == 1) {
-      if (CLC_SPEAKJS_OBJ.playing) {
-        CLC_SPEAKJS_OBJ.source.stop();
-        CLC_SPEAKJS_OBJ.source = null;
-      }
-
-      CLC_SPEAKJS_OBJ.playing = false;
-      CLC_SPEAKJS_OBJ.Waiting = false;
-   }
-
-   return;
+   sendSyncMessage(addOnID + ":CLC_Interrupt");
 }
 
 
 //------------------------------------------
 
-//function WriteToConsole(message) {
-//  myclass = Components.classes['@mozilla.org/consoleservice;1'];
-//  myservice = myclass.getService(Components.interfaces.nsIConsoleService);
-//  myservice.logStringMessage(message);
-//}
+//Cancels speech from the speech engine.
+//
+function CLC_Stop() {
+  if (CLC_BrowserSpeechEnabled) {
+    CLC_Window().speechSynthesis.cancel();
+  } else {
+	if (CLC_SPEAKJS_OBJ.Playing) {
+      CLC_SPEAKJS_OBJ.source.stop();
+      CLC_SPEAKJS_OBJ.source = null;
+    }
 
+    CLC_SPEAKJS_OBJ.Playing = false;
+    CLC_SPEAKJS_OBJ.Waiting = false;
+  }
+}
 
 //------------------------------------------
 
@@ -177,45 +194,64 @@ function CLC_Interrupt() {
 //CLC_Say will NOT interrupt the currently spoken string.
 //
 function CLC_Say(messagestring, pitch) {
-   if (CLC_TTS_ENGINE == 0){
-      return;
-   }
+  pitch = (pitch * 25) + CLC_SPEAKJS_DefaultMiddle;
+  
+  if (CLC_BrowserSpeechEnabled) {
+    var SpeechSynthesisUtterance = CLC_Window().SpeechSynthesisUtterance;
+    var utterance = new SpeechSynthesisUtterance(messagestring);
 
-   if ((pitch > 2) || (pitch < -2)) {
-      alert("Invalid pitch");
-      return;
-   }
+    CLC_SPEAKJS_OBJ.Waiting = true;
+    CLC_SPEAKJS_OBJ.Playing = false;
 
-   if (CLC_TTS_ENGINE == 1) {
-      pitch = (pitch * 25) + CLC_SPEAKJS_DefaultMiddle;
-      
-      // * TODO: Fix message text.
+    utterance.pitch = pitch;
+    utterance.volume = CLC_SPEAKJS_DefaultVolume;
+    utterance.speed = CLC_SPEAKJS_DefaultRate;
+    utterance.lang = CLC_LANG;
+    utterance.onstart = function() { CLC_SPEAKJS_OBJ.Playing = true; CLC_SPEAKJS_OBJ.Waiting = false; };
+    utterance.onpause = function() { CLC_SPEAKJS_OBJ.Playing = false; };
+    utterance.onresume = function() { CLC_SPEAKJS_OBJ.Playing = true; };
+    utterance.onend = function() { CLC_SPEAKJS_OBJ.Playing = false; };
+    //utterance.onerror = function() { CLC_SPEAKJS_OBJ.Playing = false; };
 
-      CLC_SPEAKJS_Speak(
-        messagestring,
-        CLC_SPEAKJS_OBJ,
-        {
-          amplitude: CLC_SPEAKJS_DefaultVolume,
-          pitch: pitch,
-          speed: CLC_SPEAKJS_DefaultRate
-        } //, voice: CLC_LANG }
-      );
-   }
+    CLC_Window().speechSynthesis.speak(utterance);
+  } else {
+	CLC_SPEAKJS_Speak(
+      messagestring,
+      CLC_SPEAKJS_OBJ,
+      {
+        amplitude: CLC_SPEAKJS_DefaultVolume,
+        pitch: pitch,
+        speed: CLC_SPEAKJS_DefaultRate
+      } //, voice: CLC_LANG }
+    );
+  }
 }
 
 
 //------------------------------------------
 
 function CLC_Say_Direct(messagestring, args) {
-   if (CLC_TTS_ENGINE == 0) {
-      return;
-   }
+  if (CLC_BrowserSpeechEnabled) {
+    var SpeechSynthesisUtterance = CLC_Window().SpeechSynthesisUtterance;
+    var utterance = new SpeechSynthesisUtterance(messagestring);
 
-   if (CLC_TTS_ENGINE == 1) {
-      CLC_SPEAKJS_Speak(messagestring, CLC_SPEAKJS_OBJ, args);
+    CLC_SPEAKJS_OBJ.Waiting = true;
+    CLC_SPEAKJS_OBJ.Playing = false;
+  
+    utterance.pitch = args.pitch;
+    utterance.volume = args.amplitude;
+    utterance.speed = args.speed;
+    utterance.lang = args.voice;
+    utterance.onstart = function() { CLC_SPEAKJS_OBJ.Playing = true; CLC_SPEAKJS_OBJ.Waiting = false; };
+    utterance.onpause = function() { CLC_SPEAKJS_OBJ.Playing = false; };
+    utterance.onresume = function() { CLC_SPEAKJS_OBJ.Playing = true; };
+    utterance.onend = function() { CLC_SPEAKJS_OBJ.Playing = false; };
+    //utterance.onerror = function() { CLC_SPEAKJS_OBJ.Playing = false; };
 
-      return;
-   }
+    CLC_Window().speechSynthesis.speak(utterance);
+  } else {
+	CLC_SPEAKJS_Speak(messagestring, CLC_SPEAKJS_OBJ, args);
+  }
 }
 
 
@@ -242,186 +278,15 @@ function CLC_Say_Direct(messagestring, args) {
 //CLC_Read will NOT interrupt the currently spoken string.
 //
 function CLC_Read(contentobject, contentstring, pitch) {
-   if (CLC_TTS_ENGINE == 0) {
-      return;
-   }
+  CLC_Say(contentstring, pitch);
+  
+  for(var i = CLC_TTS_HISTORY_BUFFER_MAXSIZE; i > 1; i--) {
+    CLC_TTS_HISTORY_BUFFER[i - 1] = CLC_TTS_HISTORY_BUFFER[i - 2];
+  }
 
-   if (pitch > 2 || pitch < -2) {
-      alert("Invalid pitch");
-      return;
-   }
-
-   if (CLC_TTS_ENGINE == 1) {
-      pitch = (pitch * 25) + CLC_SPEAKJS_DefaultMiddle;
-      
-      // * TODO: Fix message text.
-
-      CLC_SPEAKJS_Speak(
-         messagestring,
-         CLC_SPEAKJS_OBJ,
-         { amplitude: CLC_SPEAKJS_DefaultVolume, pitch: pitch, speed: CLC_SPEAKJS_DefaultRate } //, voice: CLC_LANG }
-      );
-   }
-
-   for(var i = CLC_TTS_HISTORY_BUFFER_MAXSIZE; i > 1; i--) {
-      CLC_TTS_HISTORY_BUFFER[i-1] = CLC_TTS_HISTORY_BUFFER[i - 2];
-   }
-
-   CLC_TTS_HISTORY_BUFFER[0] = contentobject;
+  CLC_TTS_HISTORY_BUFFER[0] = contentobject;
 }
 
-//------------------------------------------
-
-//Retrieves the ("i"+1)th content object that was most recently read
-//
-//Example: CLC_Recently_Read(0) will return the last object 
-//         that was read while CLC_Recently_Read(1) will 
-//         return the next to the last object that was read.
-//
-function CLC_Recently_Read(i){
-   if ((i < 0) || (i > CLC_TTS_HISTORY_BUFFER_MAXSIZE - 1)) {
-      alert("Out of bounds of the Read History Buffer.");
-      return null;
-   }
-
-   return CLC_TTS_HISTORY_BUFFER[i];
-}
-
-//------------------------------------------
-
-//This function is intended to allow developers to
-//make the speech engine spell out a message. Possible uses
-//include (but are definitely not limited to) clarifying
-//a specific word if it is unclear when spoken normally and 
-//for spelling out abbreivations
-//
-//Makes the speech engine spell the "messagestring" 
-//using the specified "pitch."
-//
-//"messagestring" is a text string.
-//"pitch" can be any one of the following integer values:
-//   -2 = very low
-//   -1 = low
-//    0 = normal
-//    1 = high
-//    2 = very high
-//
-//CLC_Spell will NOT interrupt the currently spoken string.
-//
-function CLC_Spell(messagestring, pitch) {
-   if (CLC_TTS_ENGINE == 0) {
-      return;
-   }
-
-   if ((pitch > 2) || (pitch < -2)) {
-      alert("Invalid pitch");
-      return;
-   }
-
-   if (CLC_TTS_ENGINE == 1) {
-      pitch = (pitch * 25) + CLC_SPEAKJS_DefaultMiddle;
-      
-      // * TODO: Fix message text.
-      // * TODO: Space out letters.
-
-      CLC_SPEAKJS_Speak(
-         messagestring,
-         CLC_SPEAKJS_OBJ,
-         { amplitude: CLC_SPEAKJS_DefaultVolume, pitch: pitch, speed: CLC_SPEAKJS_DefaultRate } //, voice: CLC_LANG }
-      );
-   }
-}
-
-
-//------------------------------------------
-//This function is intended to allow developers to
-//make the speech engine say a message that has immediate
-//priority over everything else. Possible uses
-//include (but are definitely not limited to) announcing
-//events to the user and echoing back hotkey commands.
-//
-//Makes the speech engine say the "messagestring" 
-//using the specified "pitch."
-//
-//"messagestring" is a text string.
-//"pitch" can be any one of the following integer values:
-//   -2 = very low
-//   -1 = low
-//    0 = normal
-//    1 = high
-//    2 = very high
-//
-//CLC_Shout WILL interrupt the currently spoken string.
-//
-function CLC_Shout(messagestring, pitch) {
-   if (CLC_TTS_ENGINE == 0) {
-      return;
-   }
-
-   if ((pitch > 2) || (pitch < -2)){
-      alert("Invalid pitch");
-      return;
-   }
-
-   if (CLC_TTS_ENGINE == 1) {
-      pitch = (pitch * 25) + CLC_SPEAKJS_DefaultMiddle;
-      
-      // * TODO: Fix message text.
-      // * TODO: Do some sort of priority magic.
-
-      CLC_SPEAKJS_Speak(
-         messagestring,
-         CLC_SPEAKJS_OBJ,
-         { amplitude: CLC_SPEAKJS_DefaultVolume, pitch: pitch, speed: CLC_SPEAKJS_DefaultRate } //, voice: CLC_LANG }
-      );
-   }
-}
-
-//------------------------------------------
-//This function is intended to allow developers to
-//make the speech engine "spell" a message that has immediate
-//priority over everything else. Possible uses
-//include (but are definitely not limited to) announcing
-//keys that the user has typed. ShoutSpell should be used
-//rather than Shout in order to announce punctuation.
-//
-//Makes the speech engine spell the "messagestring" 
-//using the specified "pitch."
-//
-//"messagestring" is a text string.
-//"pitch" can be any one of the following integer values:
-//   -2 = very low
-//   -1 = low
-//    0 = normal
-//    1 = high
-//    2 = very high
-//
-//CLC_ShoutSpell WILL interrupt the currently spoken string.
-//
-function CLC_ShoutSpell(messagestring, pitch) {
-   if (CLC_TTS_ENGINE == 0) {
-      return;
-   }
-
-   if ((pitch > 2) || (pitch < -2)) {
-      alert("Invalid pitch");
-      return;
-   }
-
-   if (CLC_TTS_ENGINE == 1) {
-      pitch = (pitch * 25) + CLC_SPEAKJS_DefaultMiddle;
-      
-      // * TODO: Fix message text.
-      // * TODO: Space out letters.
-      // * TODO: Do some sort of priority magic.
-
-      CLC_SPEAKJS_Speak(
-         messagestring,
-         CLC_SPEAKJS_OBJ,
-         { amplitude: CLC_SPEAKJS_DefaultVolume, pitch: pitch, speed: CLC_SPEAKJS_DefaultRate } //, voice: CLC_LANG }
-      );
-   }
-}
 
 //------------------------------------------
 //Sets the synthesizer language. Whether this works depends on 
@@ -433,7 +298,7 @@ function CLC_ShoutSpell(messagestring, pitch) {
 //See http://www.w3.org/TR/html4/struct/dirlang.html
 //
 function CLC_SetLanguage(theLanguage) {
-   CLC_LANG = theLanguage;
+  CLC_LANG = theLanguage;
 }
 
 //------------------------------------------

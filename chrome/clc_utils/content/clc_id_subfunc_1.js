@@ -1,4 +1,5 @@
-ï»¿//Copyright (C) 2005
+
+//Copyright (C) 2005
 //CLC-4-TTS Firefox Extension
 //Core Library Components for Text-To-Speech for Firefox
 //Additional Utility Functions: Element Identification System - Sub Functions
@@ -504,7 +505,7 @@ function CLC_Html_Info1(target){
          title =  temp[0].textContent;
          }
       }
-   var frames = window._content.document.documentElement.getElementsByTagName("frame");
+   var frames = window.content.document.documentElement.getElementsByTagName("frame");
    
   //English
    if (CLC_InfoLang == 1){
@@ -662,7 +663,7 @@ function CLC_Input_Info1(target){
          return "bouton d'annulation";
          }
       if (target.type.toLowerCase() == "checkbox"){
-         return "case Ã  cocher";
+         return "case à cocher";
          }
       return "";
       }
@@ -775,7 +776,7 @@ function CLC_Li_Info1(target){
          return Li_num;
          }
       else{
-         return "Ã©lÃ©ment de liste";
+         return "élément de liste";
          }
       }
   //Brief - English
@@ -800,7 +801,7 @@ function CLC_Ol_Info1(target){
       }
   //French
    if (CLC_InfoLang == 2){
-       return "liste ordonnÃ©e " + target.title + "avec " + true_item_count + " Ã©lÃ©ments";
+       return "liste ordonnée " + target.title + "avec " + true_item_count + " éléments";
       }
   //Brief - English
    if (CLC_InfoLang == 3){
@@ -823,7 +824,7 @@ function CLC_Select_Info1(target){
       }
   //French
    if (CLC_InfoLang == 2){
-      return "liste dÃ©roulante";
+      return "liste déroulante";
       }
   //Brief - English
    if (CLC_InfoLang == 3){
@@ -880,10 +881,10 @@ function CLC_Table_Info1(target){
    if (CLC_InfoLang == 2){
       var summary = "";
       if (target.summary){
-         summary = "rÃ©sumÃ© du tableau: " + target.summary;
+         summary = "résumé du tableau: " + target.summary;
          } 
       else if ( CLC_ProbablyDataTable(target) ){
-         summary = "Aucun rÃ©sumÃ© disponible.";
+         summary = "Aucun résumé disponible.";
          } 
       return summary + " Ce tableau contient " + cols + " colonnes et " + rows + " lignes.";
       }
@@ -922,7 +923,7 @@ function CLC_Td_Info1(target){
   //French
    if (CLC_InfoLang == 2){
       if (!HasColHeading){
-         col_heading_text = "en-tÃªte dÃ©duite automatiquement: " + col_heading_text;
+         col_heading_text = "en-tête déduite automatiquement: " + col_heading_text;
          }
       return col_heading_text  + ". ";
       }
@@ -998,15 +999,15 @@ function CLC_Th_Info1(target){
       var additional_col_info = "";                   //Use this if it is a row header inside a table
                                                       //and the header is under some column
       if (target.scope.toLowerCase() == "col"){
-         type = "en-tÃªte de colonne ";
+         type = "en-tête de colonne ";
          }
       else if (target.scope.toLowerCase() == "row"){
-         type = "ligne d'en-tÃªte ";
+         type = "ligne d'en-tête ";
          if (CLC_FindRowNumber(target) > 1){
             var col_heading_text = CLC_GetColHeading(target);      
             if (!col_heading_text){ 
                col_heading_text = CLC_GuessColHeading(target);
-               additional_col_info = "en-tÃªte dÃ©duite automatiquement: " + col_heading_text + ". ";
+               additional_col_info = "en-tête déduite automatiquement: " + col_heading_text + ". ";
                }
             else {
                additional_col_info = col_heading_text + ". ";
@@ -1061,7 +1062,7 @@ function CLC_Ul_Info1(target){
       }
   //French
    if (CLC_InfoLang == 2){
-      return "Liste non ordonnÃ©e " + target.title + "avec " + true_item_count + " Ã©lÃ©ments";
+      return "Liste non ordonnée " + target.title + "avec " + true_item_count + " éléments";
       }
   //Brief - English
    if (CLC_InfoLang == 3){
@@ -1076,15 +1077,3 @@ function CLC_Ul_Info1(target){
    }
 
 //------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-

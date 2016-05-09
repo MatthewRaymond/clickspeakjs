@@ -3,6 +3,7 @@
 //Core Library Components for Text-To-Speech for Firefox
 //Additional Utility Functions: Window
 //by Charles L. Chen
+//Modified by Matthew Raymond
 
  
 //This program is free software; you can redistribute it
@@ -20,15 +21,15 @@
 //Suite 330, Boston, MA 02111-1307, USA.
  
 
-//Last Modified Date 1/15/2005
+//Last Modified Date 4/8/2015
 
 //To simplify working with the browser window and frames, use CLC_Window.
 //This will return the browser window object that is currently focused.
 //The reason for making this a separate function is just to stay on the safe
 //side in case there is a better way of getting the active window.
 //
-function CLC_Window(){
-   return document.commandDispatcher.focusedWindow;
-   }
+function CLC_Window() {
+   return content;
+}
 
 //------------------------------------------

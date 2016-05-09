@@ -2,7 +2,7 @@
 //Core Library Components for Text-To-Speech for Firefox
 //Additional Utility Functions: DOM Object Fetching Functions
 //by Charles L. Chen
-
+//Modified by Matthew Raymond
  
 //This program is free software; you can redistribute it
 //and/or modify it under the terms of the GNU General Public
@@ -19,7 +19,7 @@
 //Suite 330, Boston, MA 02111-1307, USA.
  
 
-//Last Modified Date 10/06/2007
+//Last Modified Date 3/17/2015
 
 //NOTE on "Atomic" Objects:
 //An atomic object is an object which cannot
@@ -60,12 +60,15 @@ function CLC_GetFirstAtomicObject(currentobj){
       }
 
       if (atomicObject.tagName) {
-         switch(atomicObject.tagName.toLowerCase()) {
+         switch(atomicObject.tagName) {
             case "math":
+            case "MATH":
                return atomicObject;
             case "select":
+            case "SELECT":
                return atomicObject;
             case "iframe":
+            case "IFRAME":
                atomicObject.contentDocument.parentPointer = atomicObject;
                return CLC_GetFirstAtomicObject(atomicObject.contentDocument);
             default:
@@ -80,12 +83,17 @@ function CLC_GetFirstAtomicObject(currentobj){
             return atomicObject;
          }
 
-         if (atomicObject.tagName && atomicObject.tagName.toLowerCase() == "math") {
-            return atomicObject;
-         }
-
-         if (atomicObject.tagName && atomicObject.tagName.toLowerCase() == "select") {
-            return atomicObject;
+         if (atomicObject.tagName) {
+           switch(atomicObject.tagName) {
+             case "math":
+             case "MATH":
+               return atomicObject;
+             case "select":
+             case "SELECT":
+               return atomicObject;
+             default:
+               break;
+           }
          }
       }
 
@@ -115,10 +123,13 @@ function CLC_GetLastAtomicObject(currentobj) {
       if (atomicObject.tagName) {
          switch(atomicObject.tagName.toLowerCase()) {
             case "math":
+            case "MATH":
                return atomicObject;
             case "select":
+            case "SELECT":
                return atomicObject;
             case "iframe":
+            case "IFRAME":
                atomicObject.contentDocument.parentPointer = atomicObject;
                return CLC_GetLastAtomicObject(atomicObject.contentDocument);
             default:
@@ -133,12 +144,17 @@ function CLC_GetLastAtomicObject(currentobj) {
             return atomicObject;
          }
 
-         if (atomicObject.tagName && atomicObject.tagName.toLowerCase() == "math"){
-            return atomicObject;
-         }
-
-         if (atomicObject.tagName && atomicObject.tagName.toLowerCase() == "select"){
-            return atomicObject;
+         if (atomicObject.tagName) {
+           switch(atomicObject.tagName) {
+             case "math":
+             case "MATH":
+               return atomicObject;
+             case "select":
+             case "SELECT":
+               return atomicObject;
+             default:
+               break;
+           }
          }
       }     
  
@@ -215,7 +231,7 @@ function CLC_GetPrevAtomicObject(CurrentAtomicObj){
 //------------------------------------------
 //Returns the atomic object at the cursor
 //
-function CLC_GetAtomicObjectAtCursor(){
+function CLC_GetAtomicObjectAtCursor() {
    var cursor = CLC_Window().getSelection();
 
    //Try to collapse the cursor to its start, 
@@ -230,7 +246,7 @@ function CLC_GetAtomicObjectAtCursor(){
 
    if (CLC_TagInLineage(lineage, "math")) {
       while(1) {
-         if (atomicobj.tagName && atomicobj.tagName.toLowerCase() == "math") {
+         if (atomicobj.tagName && (atomicobj.tagName == "math" || atomicobj.tagName == "MATH")) {
             return atomicobj;
          }
 
@@ -239,8 +255,8 @@ function CLC_GetAtomicObjectAtCursor(){
    }
 
    if (CLC_TagInLineage(lineage, "select")) {
-      while(1){
-         if (atomicobj.tagName && atomicobj.tagName.toLowerCase() == "select") {
+      while(1) {
+         if (atomicobj.tagName && (atomicobj.tagName == "select" || atomicobj.tagName == "SELECT")) {
             return atomicobj;
          }
 
@@ -359,23 +375,25 @@ function CLC_FindScrollable(target){
 //
 function CLC_FindFocusable(target){
   if (target != undefined && target != null) {
-    if (target.tagName && (target.tagName.toLowerCase() == "input")){
+    if (target.tagName && (target.tagName == "input" || target.tagName == "INPUT")) {
       return target;
     }
 
-    if (target.tagName && (target.tagName.toLowerCase() == "select")){
+    if (target.tagName && (target.tagName == "select" || target.tagName == "SELECT")) {
       return target;
     }
 
     var lineage = CLC_GetLineage(target);
 
     for (var i=0; i < lineage.length; i++){
-      if (lineage[i].localName && lineage[i].localName.toLowerCase() == "a" && lineage[i].hasAttribute("href")) {
+      if (lineage[i].localName && (lineage[i].localName == "a" || lineage[i].localName == "A") && lineage[i].hasAttribute("href")) {
          return lineage[i];
       }
     }
+
     var Focusable = target;
-    while (Focusable && !Focusable.focus){
+
+    while (Focusable && !Focusable.focus) {
       Focusable = Focusable.parentNode;
     }
 
@@ -432,11 +450,15 @@ function CLC_GetLogicalLineage(target){
       return CLC_GetLineage(target);
    }
 
-   switch(target.tagName.toLowerCase()) {
+   switch(target.tagName) {
       case "input":
       case "button":
       case "select":
       case "textarea":
+      case "INPUT":
+      case "BUTTON":
+      case "SELECT":
+      case "TEXTAREA":
          break;
       default:
          return CLC_GetLineage(target);

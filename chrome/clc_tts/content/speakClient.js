@@ -1,8 +1,20 @@
 var CLC_SPEAKJS_SpeakWorker;
 
-try {
-  CLC_SPEAKJS_SpeakWorker = new Worker('chrome://clc_tts/content/speakWorker.js');
-} catch(e) {
+function CLC_SPEAKJS_Init() {
+  try {
+    CLC_SPEAKJS_SpeakWorker = new Worker('chrome://clc_tts/content/speakWorker.js');
+  } catch(e) {
+    CLC_SPEAKJS_SpeakWorker = null;
+  }
+}
+
+function CLC_SPEAKJS_Uninit() {
+  try {
+	if (CLC_SPEAKJS_SpeakWorker != null) {
+	  CLC_SPEAKJS_SpeakWorker.terminate();
+	}
+  } catch(e) { }
+  
   CLC_SPEAKJS_SpeakWorker = null;
 }
 
@@ -10,11 +22,11 @@ function CLC_SPEAKJS_Speak(text, audioCtx, args) {
   var PROFILE = 1;
   var source = audioCtx.createBufferSource();
 
-  function WriteToConsole(message) {
-    myclass = Components.classes['@mozilla.org/consoleservice;1'];
-    myservice = myclass.getService(Components.interfaces.nsIConsoleService);
-    myservice.logStringMessage(message);
-  }
+  //function WriteToConsole(message) {
+  //  myclass = Components.classes['@mozilla.org/consoleservice;1'];
+  //  myservice = myclass.getService(Components.interfaces.nsIConsoleService);
+  //  myservice.logStringMessage(message);
+  //}
 
   function playSound(streamBuffer) {
     audioCtx.playing = true;
@@ -26,25 +38,11 @@ function CLC_SPEAKJS_Speak(text, audioCtx, args) {
         source.addEventListener("ended", function() {
           audioCtx.playing = false;
           audioCtx.source = null;
-          //WriteToConsole("speakClient.js: Your audio has finished playing");
         });
 
         source.buffer = audioData;
         source.connect(audioCtx.destination);
         source.start();
-
-        /*
-        var duration = audioData.duration;
-        var delay = (duration) ? Math.ceil(duration * 1000) : 100;
-
-        delay += 100;
-
-        setTimeout(function () {
-          audioCtx.playing = false;
-          audioCtx.source = null;
-        }, delay);
-
-        */
       }
     );
   }
@@ -81,4 +79,3 @@ function CLC_SPEAKJS_Speak(text, audioCtx, args) {
     CLC_SPEAKJS_SpeakWorker.postMessage({ text: text, args: args });
   }
 }
-

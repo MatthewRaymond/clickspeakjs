@@ -2,8 +2,10 @@
 <!ENTITY clc_clcspeak.prefui.buttons.save "Save">
 <!ENTITY clc_clcspeak.prefui.buttons.cancel "Cancel">
 <!ENTITY clc_clcspeak.prefui.voiceoptions "Voice Options">
+<!ENTITY clc_clcspeak.prefui.nativeTTS.label "Web Speech API - Speech Synthesis">
+<!ENTITY clc_clcspeak.prefui.nativeTTS.label.enable "Enable (Recommended)">
 <!ENTITY clc_clcspeak.prefui.speechengine.label "Speech Engine">
-<!ENTITY clc_clcspeak.prefui.speechengine.speakjs "Speak.js (Recommended)">
+<!ENTITY clc_clcspeak.prefui.speechengine.speakjs "Speak.js">
 <!ENTITY clc_clcspeak.prefui.speechrate.label "Speech Rate">
 <!ENTITY clc_clcspeak.prefui.speechrate.veryslow "Very Slow">
 <!ENTITY clc_clcspeak.prefui.speechrate.slow "Slow">

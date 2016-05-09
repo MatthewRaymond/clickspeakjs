@@ -1,61 +1,138 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
-#clc-clickspeak-speak-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-24.png");
-}
+@-moz-document url("chrome://browser/content/browser.xul") {
+  #clc-clickspeak-speak-button {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-16.png");
+  }
+  
+  #clc-clickspeak-auto-button {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-16.png");
+  }
+  
+  #clc-clickspeak-stop-button {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-16.png");
+  }
 
-toolbar[iconsize="small"] #clc-clickspeak-speak-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-16.png");
-}
+  #clc-clickspeak-speak-button-separate {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-24.png");
+  }
 
-#clc-clickspeak-auto-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-24.png");
-}
+  #clc-clickspeak-speak-button-separate[cui-areatype="menu-panel"],
+  toolbarpaletteitem[place="palette"] > #clc-clickspeak-speak-button-separate {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png");
+  }
 
-toolbar[iconsize="small"] #clc-clickspeak-auto-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-16.png");
-}
+  #clc-clickspeak-auto-button-separate {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-24.png");
+  }
 
-#clc-clickspeak-stop-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-24.png");
-}
+  #clc-clickspeak-auto-button-separate[cui-areatype="menu-panel"],
+  toolbarpaletteitem[place="palette"] > #clc-clickspeak-auto-button-separate {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-48.png");
+  }
 
-toolbar[iconsize="small"] #clc-clickspeak-stop-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-16.png");
-}
+  #clc-clickspeak-stop-button-separate {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-24.png");
+  }
 
-#clc-clickspeak-speak-exlarge-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png");
-}
+  #clc-clickspeak-stop-button-separate[cui-areatype="menu-panel"],
+  toolbarpaletteitem[place="palette"] > #clc-clickspeak-stop-button-separate {
+    list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-48.png");
+  }
 
-toolbar[iconsize="small"] #clc-clickspeak-speak-exlarge-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-16.png");
-}
+  /* High-resolution displays */
+  @media (min-resolution: 2dppx) {
+    #clc-clickspeak-speak-button {
+     list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-32.png");
+    }
+  
+    #clc-clickspeak-auto-button {
+      list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-32.png");
+    }
+  
+    #clc-clickspeak-stop-button {
+      list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-32.png");
+    }
 
-#clc-clickspeak-auto-exlarge-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-48.png");
-}
+    #clc-clickspeak-speak-button-separate {
+      list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png");
+    }
 
-toolbar[iconsize="small"] #clc-clickspeak-auto-exlarge-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-16.png");
-}
+    #clc-clickspeak-speak-button-separate[cui-areatype="menu-panel"],
+    toolbarpaletteitem[place="palette"] > #clc-clickspeak-speak-button-separate {
+      list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png");
+    }
 
-#clc-clickspeak-stop-exlarge-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-48.png");
-}
+    #clc-clickspeak-auto-button-separate {
+      list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-48.png");
+    }
 
-toolbar[iconsize="small"] #clc-clickspeak-stop-exlarge-button {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-16.png");
-}
+    #clc-clickspeak-auto-button-separate[cui-areatype="menu-panel"],
+    toolbarpaletteitem[place="palette"] > #clc-clickspeak-auto-button-separate {
+      list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-48.png");
+    }
 
-#clc-clickspeak-speak-menuitem {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-16.png");
-}
+    #clc-clickspeak-stop-button-separate {
+      list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-48.png");
+    }
 
-#clc-clickspeak-auto-menuitem {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-go-16.png");
-}
+    #clc-clickspeak-stop-button-separate[cui-areatype="menu-panel"],
+    toolbarpaletteitem[place="palette"] > #clc-clickspeak-stop-button-separate {
+      list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-48.png");
+    }
+  }
 
-#clc-clickspeak-stop-menuitem {
-  list-style-image: url("chrome://clc_clcspeak/skin/clc-clcspeak-button-stop-16.png");
+  /*
+  #wrapper-clickspeakjs-controls:-moz-any([place="palette"],[place="panel"]) > #clickspeakjs-controls {
+    -moz-margin-start: 0;
+  }
+
+  #clickspeakjs-controls:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > #clc-clickspeak-auto-button {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+
+  #clickspeakjs-controls:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > #clc-clickspeak-auto-button {
+    *//* reduce the width with 2px for this button to compensate for two separators
+       of 1px. *//*
+    min-width: calc((22.35em / 3 - 0.1px) - 2px);
+    max-width: calc((22.35em / 3 - 0.1px) - 2px);
+  }
+
+  #clickspeakjs-controls:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > #clc-clickspeak-speak-button:-moz-locale-dir(ltr),
+  #clickspeakjs-controls:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > #clc-clickspeak-stop-button:-moz-locale-dir(rtl) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  #clickspeakjs-controls:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > #clc-clickspeak-speak-button:-moz-locale-dir(rtl),
+  #clickspeakjs-controls:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > #clc-clickspeak-stop-button:-moz-locale-dir(ltr) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  #wrapper-clickspeakjs-controls[place="palette"] > #clickspeakjs-controls > toolbarbutton,
+  #wrapper-clickspeakjs-controls[place="palette"] > #clickspeakjs-controls > separator {
+    margin-top: 20px;
+  }
+
+  #wrapper-clickspeakjs-controls[place="palette"] > #clickspeakjs-controls > toolbarbutton {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 24px;
+    min-width: 24px;
+    max-height: 24px;
+    min-height: 24px;
+    padding: 4px;
+  }
+
+  #wrapper-clickspeakjs-controls[place="palette"] > #clickspeakjs-controls > toolbarbutton > .toolbarbutton-icon {
+    width: 16px;
+  }
+
+  #wrapper-clickspeakjs-controls > #clickspeakjs-controls > toolbarbutton > .toolbarbutton-icon {
+    opacity: 1; *//* To ensure these buttons always look enabled in customize mode *//*
+  }
+  */
 }

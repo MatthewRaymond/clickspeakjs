@@ -94,7 +94,7 @@ function CLC_CS_ReadContentBySentence(){
       CLC_CS_SentencesArray = 0;
       CLC_CS_SentencesArrayIndex = -1;
       }
-   CLC_Unhighlight();
+
    CLC_CS_SetCurrentAtomicObject();
    if (CLC_CS_CurrentAtomicObject){
       //Cursor matching is known to be risky and can 
@@ -108,7 +108,7 @@ function CLC_CS_ReadContentBySentence(){
       //Setup the sentence array
       //Handle MathML differently. Since the generated sentence is not the same as what is displayed,
       //lump the whole thing as one sentence.
-      if (CLC_CS_CurrentAtomicObject.tagName && CLC_CS_CurrentAtomicObject.tagName.toLowerCase() == "math"){
+      if (CLC_CS_CurrentAtomicObject.tagName && (CLC_CS_CurrentAtomicObject.tagName == "math" || CLC_CS_CurrentAtomicObject.tagName == "MATH")) {
          CLC_CS_SentencesArray = new Array();
          CLC_CS_SentencesArray.push(CLC_GetTextContent(CLC_CS_CurrentAtomicObject));
          }

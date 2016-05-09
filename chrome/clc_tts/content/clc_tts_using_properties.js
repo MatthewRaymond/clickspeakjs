@@ -19,7 +19,7 @@
 //Suite 330, Boston, MA 02111-1307, USA.
  
 
-//Last Modified Date 6/13/2008
+//Last Modified Date 4/07/2016
 
 
 //For all the functions that use properties:
@@ -71,8 +71,6 @@
 //property that is past the end of the given array will 
 //simply have its default value used. 
 
-
-
 function CLC_GenerateSpeakJSArrayWithProperties(speechProperties_array, additionalProperties_array)
 {
    var pitch = CLC_SPEAKJS_DefaultMiddle;
@@ -102,8 +100,6 @@ function CLC_GenerateSpeakJSArrayWithProperties(speechProperties_array, addition
          }
       }
    }
-
-   //Ignore pitch range since Speak.js does not support this property.
 
    //Set rate
    if (speechProperties_array.length > 2) {
@@ -155,20 +151,25 @@ function CLC_GenerateSpeakJSArrayWithProperties(speechProperties_array, addition
       }
    }
 
-   var retParam = {
-      "amplitude": volume,
-      "pitch": pitch,
-      "speed": rate /* ,
-      "voice": CLC_LANG */
-   };
+   var retParam
 
-   //WriteToConsole("amplitude: " + volume + " - pitch: " + pitch + " - speed: "
-   // + rate + " - voice: " + CLC_LANG);
-
+   if (CLC_BrowserSpeechEnabled) {
+     retParam = {
+       "amplitude": volume,
+       "pitch": pitch,
+       "speed": rate,
+       "voice": CLC_LANG
+     };
+   } else {
+     retParam = {
+       "amplitude": volume,
+       "pitch": pitch,
+       "speed": rate
+     };
+   }
+   
    return retParam;
 }
-
-
 
 //------------------------------------------
 //
@@ -185,21 +186,16 @@ function CLC_GenerateSpeakJSArrayWithProperties(speechProperties_array, addition
 //
 //CLC_SayWithProperties will NOT interrupt the currently spoken string.
 //
-function CLC_SayWithProperties(messagestring, speechProperties_array, additionalProperties_array){
-   if (CLC_TTS_ENGINE == 0) {
-      return;
-   }
-
-   if (CLC_TTS_ENGINE == 1) {
-      CLC_Say_Direct(
-         messagestring,
-         CLC_GenerateSpeakJSArrayWithProperties(speechProperties_array, additionalProperties_array)
-      );
-
-      return;
-   }
+function CLC_SayWithProperties(
+  messagestring,
+  speechProperties_array,
+  additionalProperties_array
+) {
+  CLC_Say_Direct(
+    messagestring,
+    CLC_GenerateSpeakJSArrayWithProperties(speechProperties_array, additionalProperties_array)
+  );
 }
-
 
 
 //------------------------------------------
@@ -217,19 +213,22 @@ function CLC_SayWithProperties(messagestring, speechProperties_array, additional
 //
 //CLC_ReadWithProperties will NOT interrupt the currently spoken string.
 //
-function CLC_ReadWithProperties(contentobject, messagestring, speechProperties_array, additionalProperties_array) {
-   CLC_SayWithProperties(messagestring, speechProperties_array, additionalProperties_array);
+function CLC_ReadWithProperties(
+  contentobject,
+  messagestring,
+  speechProperties_array,
+  additionalProperties_array
+) {
+  CLC_SayWithProperties(messagestring, speechProperties_array, additionalProperties_array);
 
-   for(var i = CLC_TTS_HISTORY_BUFFER_MAXSIZE; i > 1; i--) {
-      CLC_TTS_HISTORY_BUFFER[i-1] = CLC_TTS_HISTORY_BUFFER[i-2];
-   } 
+  for(var i = CLC_TTS_HISTORY_BUFFER_MAXSIZE; i > 1; i--) {
+    CLC_TTS_HISTORY_BUFFER[i - 1] = CLC_TTS_HISTORY_BUFFER[i - 2];
+  }
 
-   CLC_TTS_HISTORY_BUFFER[0] = contentobject;
+  CLC_TTS_HISTORY_BUFFER[0] = contentobject;
 
-   return;
+  return;
 }
-
-
 
 
 //------------------------------------------
@@ -241,17 +240,13 @@ function CLC_ReadWithProperties(contentobject, messagestring, speechProperties_a
 //
 //CLC_ShoutWithProperties WILL interrupt the currently spoken string.
 //
-function CLC_ShoutWithProperties(messagestring, speechProperties_array, additionalProperties_array) {
-   if (CLC_TTS_ENGINE == 0) {
-      return;
-   }
-
-   if (CLC_TTS_ENGINE == 1) {
-      CLC_Say_Direct(
-         messagestring,
-         CLC_GenerateSpeakJSArrayWithProperties(speechProperties_array, additionalProperties_array)
-      );
-
-      return;
-   }
+function CLC_ShoutWithProperties(
+  messagestring,
+  speechProperties_array,
+  additionalProperties_array
+) {
+  CLC_Say_Direct(
+    messagestring,
+    CLC_GenerateSpeakJSArrayWithProperties(speechProperties_array, additionalProperties_array)
+  );
 }

@@ -21,20 +21,8 @@
 //Suite 330, Boston, MA 02111-1307, USA.
  
 
-//Last Modified Date 3/13/2015
+//Last Modified Date 5/06/2015
 
-
-
-//------------------------------------------
-//Turns on caret browsing mode
-//
-function CLC_CaretModeOn(){
-  var Cc = Components.classes;
-  var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-
-  prefs.getBranch("").setBoolPref("accessibility.warn_on_browsewithcaret", false);
-  prefs.getBranch("").setBoolPref("accessibility.browsewithcaret", true);
-}
 
 //------------------------------------------
 //This moves the caret (cursor used for caret 
@@ -43,13 +31,17 @@ function CLC_CaretModeOn(){
 function CLC_MoveCaret(targ_DOMobj) {
   if (targ_DOMobj) {
     var cursor = CLC_Window().getSelection();
-    var range = document.createRange();
+    var range = CLC_Window().document.createRange();
 
     range.setStart(targ_DOMobj, 0);
     range.setEnd(targ_DOMobj, 0);
 
-    cursor.collapse(targ_DOMobj, 0);
-    cursor.addRange(range);
+    try {
+      cursor.collapse(targ_DOMobj, 0);
+      cursor.addRange(range);
+	} catch(e) {
+		CLC_Window().console.error("CLC_MoveCaret Error: " + e.toString());
+	}
   }
 }
 
@@ -89,7 +81,7 @@ function CLC_SelectSentence(targ_DOMobj, targ_sentenceArray, targ_sentenceArrayI
     var endPoint = startPoint + targ_sentenceArray[targ_sentenceArrayIndex].length;
 
     // * Create the range
-    var range = document.createRange();
+    var range = CLC_Window().document.createRange();
 
     range.setStart(targ_DOMobj, startPoint); 
     range.setEnd(targ_DOMobj, endPoint); 

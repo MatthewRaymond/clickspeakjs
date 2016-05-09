@@ -27,32 +27,32 @@
 //Suite 330, Boston, MA 02111-1307, USA.
 
 
-//Last Modified Date 2015-03-13
+//Last Modified Date 2016-04-07
 -->
 
-	<Description about="urn:mozilla:install-manifest">
-		<!-- nsIUpdateItem type for a Multiple Item Package -->
-		<em:type>2</em:type>
+  <Description about="urn:mozilla:install-manifest">
+    <!-- nsIUpdateItem type for a Multiple Item Package -->
+    <em:type>2</em:type>
+    <em:bootstrap>true</em:bootstrap>
 
-		<em:id>{D1517460-5F8F-11DB-B0DE-0800200CA666}</em:id>
-		<em:name>CLiCk, Speak.js</em:name>
-		<em:version>1.6.38</em:version>
-		<em:description>CLiCk, Speak.js is a hybrid of Charles L. Chen's excellent text-to-speech extension and the JavaScript TTS engine Speak.js. It also includes some code improvements for ML-FireVox.</em:description>
-		<em:creator>Matthew Raymond</em:creator>
-                <em:developer>Charles L. Chen</em:developer>
-                <em:developer>Filippo Battaglia</em:developer>
-		<em:homepageURL>https://github.com/MatthewRaymond/clickspeakjs</em:homepageURL>
+    <em:id>{D1517460-5F8F-11DB-B0DE-0800200CA666}</em:id>
+    <em:name>CLiCk, Speak.js</em:name>
+    <em:version>1.7.49</em:version>
+    <em:description>CLiCk, Speak.js is a hybrid of Charles L. Chen's excellent text-to-speech extension and the JavaScript TTS engine Speak.js. It also includes some code improvements for ML-FireVox.</em:description>
+    <em:creator>Matthew Raymond</em:creator>
+    <em:developer>Charles L. Chen</em:developer>
+    <em:developer>Filippo Battaglia</em:developer>
+    <em:homepageURL>https://github.com/MatthewRaymond/clickspeakjs</em:homepageURL>
 
-		<em:targetApplication>
-			<Description>
-				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-				<em:minVersion>23.0</em:minVersion>
-				<em:maxVersion>38.0a2</em:maxVersion>
-			</Description>
-		</em:targetApplication>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>45.0</em:minVersion>
+        <em:maxVersion>49.0a1</em:maxVersion>
+      </Description>
+    </em:targetApplication>
 
-		<em:optionsURL>chrome://clc_clcspeak/content/clc_clcspeak_pref_ui.xul</em:optionsURL>
-		<em:aboutURL>chrome://clc_clcspeak/content/clc_clcspeak_about.xul</em:aboutURL>
-		<em:iconURL>chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png</em:iconURL>
-	</Description>
+    <em:optionsURL>chrome://clc_clcspeak/content/clc_clcspeak_pref_ui.xul</em:optionsURL>
+    <em:aboutURL>chrome://clc_clcspeak/content/clc_clcspeak_about.xul</em:aboutURL>
+  </Description>
 </RDF>

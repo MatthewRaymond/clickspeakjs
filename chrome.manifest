@@ -1,20 +1,6 @@
 content clc_clcspeak chrome/clc_clcspeak/content/
 skin    clc_clcspeak classic/1.0 chrome/clc_clcspeak/skin/
 locale  clc_clcspeak en-US chrome/clc_clcspeak/locale/en-US/
-overlay chrome://browser/content/browser.xul         chrome://clc_clcspeak/content/clc_clcspeakOverlay.xul
-style   chrome://browser/content/browser.xul         chrome://clc_clcspeak/skin/clc_clickspeak.css
-style   chrome://global/content/customizeToolbar.xul chrome://clc_clcspeak/skin/clc_clickspeak.css
-
 
 content clc_utils chrome/clc_utils/content/
-overlay chrome://browser/content/browser.xul     chrome://clc_utils/content/clc_utilsOverlay.xul
-overlay chrome://navigator/content/navigator.xul chrome://clc_utils/content/clc_utilsOverlay.xul
-overlay chrome://global/content/commonDialog.xul chrome://clc_utils/content/clc_utilsOverlay.xul
-overlay chrome://chatzilla/content/chatzilla.xul chrome://clc_utils/content/clc_utilsOverlay.xul
-
 content clc_tts chrome/clc_tts/content/
-overlay chrome://browser/content/browser.xul     chrome://clc_tts/content/clc_ttsOverlay.xul
-overlay chrome://navigator/content/navigator.xul chrome://clc_tts/content/clc_ttsOverlay.xul
-overlay chrome://global/content/commonDialog.xul chrome://clc_tts/content/clc_ttsOverlay.xul
-overlay chrome://browser/content/preferences/preferences.xul chrome://clc_tts/content/clc_ttsOverlay.xul
-overlay chrome://chatzilla/content/chatzilla.xul chrome://clc_tts/content/clc_ttsOverlay.xul

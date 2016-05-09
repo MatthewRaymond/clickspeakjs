@@ -9,63 +9,45 @@ function CLC_CS_Mouseclick_Handler(event) {
 }
 
 
-
 //------------------------------------------
 //Sets the event listener to catch keypress events
 //
 function CLC_CS_Mouseclick_Init() {   
-   window.addEventListener("click", CLC_CS_Mouseclick_Handler, false);
+  CLC_Window().addEventListener("click", CLC_CS_Mouseclick_Handler, false);
 }
 
 //------------------------------------------
 
 
 function CLC_CS_Focus_Handler(event) {   
-   CLC_CS_LastFocusedObject = event.target;
-   return;
+  CLC_CS_LastFocusedObject = event.target;
+  return;
 }
 
-function CLC_CS_Focus_Init(){   
-   var framesArray = window.content.document.documentElement.getElementsByTagName("frame");
-   var F;
-   var csWindow;
-   var i;
+function CLC_CS_Focus_Init() {
+  var csWindow = CLC_Window();
+  var framesArray = csWindow.document.documentElement.getElementsByTagName("frame");
 
-   for(i = 0; i < framesArray.length; i++) {
-      F = framesArray[i];
+  for(var i = 0; i < framesArray.length; i++) {
+    CLC_CS_Bind_Focus_Events(framesArray[i].contentWindow);
+  }
 
-      if (F.contentWindow && F.contentWindow.document && F.contentWindow.document.body) {
-         F.contentWindow.document.body.addEventListener("focus", CLC_CS_Focus_Handler, true);
-      }
-   }
-
-   csWindow = CLC_Window();
-
-   if (csWindow && csWindow.document && csWindow.document.body) {
-      csWindow.document.body.addEventListener("focus", CLC_CS_Focus_Handler, true);
-   }
-
-   for(i = 0; i < framesArray.length; i++) {
-      F = framesArray[i];
-
-      if (F.contentWindow && F.contentWindow.document && F.contentWindow.document.body) {
-         F.contentWindow.document.body.addEventListener("blur", CLC_CS_Blur_Handler, true);
-      }
-   }
-
-   csWindow = CLC_Window();
-
-   if (csWindow && csWindow.document && csWindow.document.body) {
-      csWindow.document.body.addEventListener("blur", CLC_CS_Blur_Handler, true);
-   }
+  CLC_CS_Bind_Focus_Events(csWindow);
 }
 
+function CLC_CS_Bind_Focus_Events(eventWindow) {
+  if (eventWindow && eventWindow.document && eventWindow.document.body) {
+    var docbody = eventWindow.document.body;
+
+    docbody.addEventListener("focus", CLC_CS_Focus_Handler, true);
+    docbody.addEventListener("blur", CLC_CS_Blur_Handler, true);
+  }
+}
 
 function CLC_CS_Blur_Handler(event) {   
-   if (CLC_CS_LastFocusedObject == event.target) {
-      CLC_CS_LastFocusedObject = 0;
-   }
+  if (CLC_CS_LastFocusedObject == event.target) {
+    CLC_CS_LastFocusedObject = 0;
+  }
 
-   return;
+  return;
 }
-

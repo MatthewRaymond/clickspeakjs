@@ -12,14 +12,13 @@
   buttonlabelaccept="&clc_clcspeak.prefui.buttons.save;"
   buttonlabelcancel="&clc_clcspeak.prefui.buttons.cancel;"
   ondialogaccept="CLC_CS_PrefUI_Save();"
-  onload="CLC_CS_PrefUI_Load(); window.sizeToContent();"
+  onload="CLC_Init(); CLC_CS_PrefUI_Load(); window.sizeToContent();"
+  onunload="CLC_CS_PrefUI_Unload();"
 >
-  <script type="application/x-javascript" src="chrome://clc_tts/content/speakClient.js" />
+  <script type="application/x-javascript" src="chrome://clc_utils/content/clc_window.js" />
   <script type="application/x-javascript" src="chrome://clc_tts/content/clc_tts.js" />
   <script type="application/x-javascript" src="chrome://clc_tts/content/clc_tts_using_properties.js" />
-  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_globals.js" />
-  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_TTSEngineConfig.js" />
-  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_preferences.js" />
+  <script type="application/x-javascript" src="chrome://clc_tts/content/speakClient.js" />
   <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_prefUI.js" />
   <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_prefUI_events.js" />
 
@@ -32,13 +31,9 @@
       </columns>
       <rows>
         <row align="center">
-          <label value="&clc_clcspeak.prefui.speechengine.label;" control="speechEngine-menulist"/>
-          <menulist id="speechEngine-menulist">
-            <menupopup onpopuphidden="CLC_CS_PrefUI_PopUpHiddenHandler();">
-              <menuitem id="1" label="&clc_clcspeak.prefui.speechengine.speakjs;"/>
-            </menupopup>
-          </menulist>
-        </row>
+		  <label value="&clc_clcspeak.prefui.nativeTTS.label;" />
+		  <checkbox id="nativeTTS-checkbox" label="&clc_clcspeak.prefui.nativeTTS.label.enable;" checked="false"/>
+		</row>
         <row align="center">
           <label value="&clc_clcspeak.prefui.speechrate.label;" control="speechRate-menulist"/>
           <menulist id="speechRate-menulist">

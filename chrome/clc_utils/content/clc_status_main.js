@@ -3,6 +3,7 @@
 //Core Library Components for Text-To-Speech for Firefox
 //Additional Utility Functions: Element Content System - Main
 //by Charles L. Chen
+//Modified by Matthew Raymond
 
  
 //This program is free software; you can redistribute it
@@ -20,7 +21,7 @@
 //Suite 330, Boston, MA 02111-1307, USA.
  
 
-//Last Modified Date 2/13/2005
+//Last Modified Date 3/17/2015
 
 //These functions are for finding the appropriate text content that
 //is associated with a given atomic DOM object.
@@ -62,31 +63,31 @@ function CLC_GetStatus(target){
   if (statusFromRole){
      return statusFromRole;
      }
-  if (target.tagName && target.tagName.toLowerCase() == "textarea"){
+  if (target.tagName && (target.tagName == "textarea" || target.tagName == "TEXTAREA")) {
      return CLC_Status_TextArea(target);
      }
-  if (target.parentNode && target.parentNode.tagName && target.parentNode.tagName.toLowerCase() == "textarea"){
+  if (target.parentNode && target.parentNode.tagName && (target.parentNode.tagName == "textarea" || target.parentNode.tagName == "TEXTAREA")) {
      return CLC_Status_TextArea(target.parentNode);
      }
-  if (target.tagName && target.tagName.toLowerCase() == "select"){
+  if (target.tagName && (target.tagName == "select" || target.tagName == "SELECT")){
      return CLC_Status_Select(target);
      }
   if (!target.tagName){
      return "";
      }
-  if (target.tagName.toLowerCase() != "input"){
+  if (!(target.tagName == "input" || target.tagName == "INPUT")) {
      return "";
      }
-  if (target.type.toLowerCase() == "radio"){
+  if (target.type == "radio" || target.type == "RADIO") {
      return CLC_Status_RadioButton(target);
      }
-  if (target.type.toLowerCase() == "text"){
+  if (target.type == "text" || target.type == "TEXT") {
      return CLC_Status_TextBlank(target);
      }
-  if (target.type.toLowerCase() == "password"){
+  if (target.type == "password" || target.type == "PASSWORD") {
      return CLC_Status_PasswordBlank(target);
      }
-  if (target.type.toLowerCase() == "checkbox"){
+  if (target.type == "checkbox" || target.type == "CHECKBOX") {
      return CLC_Status_Checkbox(target);
      }
   return "";
@@ -339,21 +340,24 @@ function CLC_GetNSStatusFromRole(target){
     statusString = statusString + CLC_GetTextContentOfAllChildren(activeDescendant);
     }
 
-  if ( (theRole.toLowerCase() == "combobox") || (theRole.toLowerCase() == "listbox")){
+  if ( (theRole.toLowerCase() == "combobox") || (theRole.toLowerCase() == "listbox")) {
     var allDescendentsArray = target.getElementsByTagName("*");
-    for (var i=0; i<allDescendentsArray.length; i++){
-      if (CLC_GetRoleStringOf(allDescendentsArray[i]) == "option"){
-        if ( allDescendentsArray[i].getAttributeNS && 
-             (allDescendentsArray[i].getAttributeNS("http://www.w3.org/2005/07/aaa", "selected").toLowerCase() == "true") ){
-          statusString = statusString + CLC_GetTextContent(allDescendentsArray[i]);
-          }
+	
+    for (var i = 0; i < allDescendentsArray.length; i++) {
+      if (CLC_GetRoleStringOf(allDescendentsArray[i]) == "option") {
+        if (allDescendentsArray[i].getAttributeNS) {
+		  var attrib = allDescendentsArray[i].getAttributeNS("http://www.w3.org/2005/07/aaa", "selected");
+		  
+		  if (attrib !== null && attrib.toLowerCase() == "true") {
+            statusString = statusString + CLC_GetTextContent(allDescendentsArray[i]);
+		  }
         }
       }
     }
-
+  }
 
   return statusString;
-  }
+}
 
 
 

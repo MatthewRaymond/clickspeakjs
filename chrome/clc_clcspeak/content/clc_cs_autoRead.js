@@ -19,10 +19,8 @@ function CLC_CS_AutoRead()
     }
 
     if (CLC_CS_CurrentAtomicObject) {
-      window.setTimeout(function(){CLC_CS_AutoRead();}, 0); 
+      CLC_Window().setTimeout(function () { CLC_CS_AutoRead(); }, 0); 
     }
-
-    CLC_CS_RestoreCaretSetting();
   }
 
   return;    

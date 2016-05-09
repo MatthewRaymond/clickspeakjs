@@ -5,33 +5,30 @@
 
 <!DOCTYPE dialog SYSTEM "chrome://clc_clcspeak/locale/about.dtd">
 
-
-
 <dialog
   id="clc_clcspeak.about"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-
   xmlns:html="http://www.w3.org/1999/xhtml"
   buttons="accept"
   title="&clc_clcspeak.about.title;"
-  onload="window.sizeToContent();"
+  onload="clc_cs_about_Load(); window.sizeToContent();"
 >
+  <script type="application/x-javascript" src="chrome://clc_clcspeak/content/clc_cs_about.js" />
+  
   <vbox>
-
     <hbox>
-
       <vbox>
         <image class="about-logo" src="chrome://clc_clcspeak/skin/clc-clcspeak-button-speak-48.png"/>
       </vbox>
       <vbox>
-        <label class="about-appname" value="CLiCk, Speak.js"/>
-        <label value="&clc_clcspeak.about.version; 1.6.24"/>
-
+        <label id="appName" class="about-appname"/>
+        <hbox>
+		  <label id="versionNumber" value="&clc_clcspeak.about.version;"/>
+		</hbox>
       </vbox>
     </hbox>
 
     <groupbox class="about-main">
-
       <vbox>
         <description class="about-description">&clc_clcspeak.about.description;</description>
         <description class="about-relatedlinks">&clc_clcspeak.about.relatedlinks;</description>
@@ -50,8 +47,6 @@
           </html:li>
         </html:ul>
       </vbox>
-
     </groupbox>
   </vbox>
-
 </dialog>

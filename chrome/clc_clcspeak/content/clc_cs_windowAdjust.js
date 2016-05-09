@@ -26,7 +26,6 @@ function CLC_CS_SentenceScroll(){
 //what is being read back.
 //
 function CLC_CS_AdjustScreen(){
-   CLC_Unhighlight();
    CLC_MoveCaret(CLC_CS_CurrentAtomicObject);   
 
    var Focusable = CLC_FindFocusable(CLC_CS_CurrentAtomicObject);

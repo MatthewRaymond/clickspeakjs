@@ -50,9 +50,8 @@
 
 //Defines the language for info messages about HTML elements
 //0 = No language (No information will be generated)
-//1 = English (Default)
-//2 = French (Incomplete)
-//3 = Brief - English 
+//1 = Default Language
+//2 = Default Language (Brief)
 var CLC_InfoLang = 1;
 
 
